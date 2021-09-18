@@ -6,6 +6,9 @@ wasm:
 test:
 	opa test *.rego
 
+annotate: wasm
+	kwctl annotate -m metadata.yml -o annotated.wasm policy.wasm
+
 e2e-tests:
 	bats e2e.bats
 
