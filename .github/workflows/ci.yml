@@ -59,12 +59,15 @@ jobs:
       #############################
       # Upload policy as an artifact
       #############################
+      - name: get rid of not annotated file
+        run: mv annotated.wasm policy.wasm
+
       - name: upload wasm policy as an artifact
         uses: actions/upload-artifact@v2
         if: github.event.workflow_run.event != 'pull_request'
         with:
           name: policy.wasm
-          path: annotated.wasm
+          path: policy.wasm
           if-no-files-found: error
 
   push-to-oci-registry:
