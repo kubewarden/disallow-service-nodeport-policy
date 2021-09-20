@@ -14,8 +14,7 @@ jobs:
     env:
       WASM_BINARY_NAME: policy.wasm
       OPA_VERSION: v0.32.0
-      # TODO: use the version that supports OPA
-      KWCTL_VERSION: v0.1.9
+      KWCTL_VERSION: v0.2.0
     steps:
       - uses: actions/checkout@v2
 
@@ -75,8 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OCI_TARGET: ghcr.io/kubewarden/policies/disallow-service-nodeport
-      # TODO: use the version that supports OPA
-      KWCTL_VERSION: v0.1.9
+      KWCTL_VERSION: v0.2.0
 
     steps:
       - name: Download artifact
