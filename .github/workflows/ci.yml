@@ -28,7 +28,7 @@ jobs:
       #############################
       - name: Download opa cli
         run: |
-          curl -L https://github.com/open-policy-agent/opa/releases/download/${{env.KWCTL_VERSION}}/opa_linux_amd64_static -o opa
+          curl -L https://github.com/open-policy-agent/opa/releases/download/${{env.OPA_VERSION}}/opa_linux_amd64_static -o opa
           chmod 755 opa
 
       - name: Download kwctl
