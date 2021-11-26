@@ -1,12 +1,12 @@
-name: psp-disallow-service-nodeport
+name: disallow-service-nodeport
 description: A policy that prevents the creation of Service resources of type `NodePort`
-homepage: https://github.com/kubewarden/policy-disallow-service-nodeport
+homepage: https://github.com/kubewarden/disallow-service-nodeport-policy
 author:
   name: Kubewarden devs
   homepage: https://github.com/kubewarden
 download:
   registry: ghcr.io/kubewarden/policies/disallow-service-nodeport:__TAG__
-  url: https://github.com/kubewarden/disallow-service-nodeport/releases/download/__TAG__/policy.wasm
+  url: https://github.com/kubewarden/disallow-service-nodeport-policy/releases/download/__TAG__/policy.wasm
 keywords:
   - Service
 resources:
