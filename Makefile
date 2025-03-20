@@ -1,9 +1,6 @@
 # POLICY_TYPE can be one of `gatekeeper`, `opa`, with different build process
 POLICY_TYPE ?= opa
 SOURCE_FILES := $(shell find . -type f -name '*.rego')
-# It's necessary to call cut because kwctl command does not handle version
-# starting with v.
-VERSION ?= $(shell git describe | cut -c2-)
 
 policy.wasm: $(SOURCE_FILES)
 ifeq ($(POLICY_TYPE), gatekeeper)
@@ -18,19 +15,12 @@ endif
 	rm bundle.tar.gz
 	touch policy.wasm # opa creates the bundle with unix epoch timestamp, fix it
 
-artifacthub-pkg.yml: metadata.yml
-	$(warning If you are updating the artifacthub-pkg.yml file for a release, \
-		remember to set the VERSION variable with the proper value. \
-		To use the latest tag, use the following command:  \
-		make VERSION=$$(git describe --tags --abbrev=0 | cut -c2-) annotated-policy.wasm)
-	kwctl scaffold artifacthub \
-	    --metadata-path metadata.yml --version $(VERSION) --output artifacthub-pkg.yml
 
 .PHONY: test
 test:
 	opa test *.rego
 
-annotated-policy.wasm: policy.wasm metadata.yml artifacthub-pkg.yml
+annotated-policy.wasm: policy.wasm metadata.yml
 	kwctl annotate -m metadata.yml -u README.md -o annotated-policy.wasm policy.wasm
 
 .PHONY: e2e-tests
@@ -39,4 +29,4 @@ e2e-tests: annotated-policy.wasm
 
 .PHONY: clean
 clean:
-	rm -f *.wasm *.tar.gz artifacthub-pkg.yml
+	rm -f *.wasm *.tar.gz
